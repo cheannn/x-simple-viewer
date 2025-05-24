@@ -2,45 +2,44 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>X シンプルビューア</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シンプルX</title>
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
       margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
-    h1 {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-    }
-    a {
-      display: block;
-      text-align: center;
-      background-color: #1da1f2;
-      color: white;
-      text-decoration: none;
-      padding: 15px 20px;
-      margin: 10px;
-      border-radius: 10px;
-      width: 80%;
-      max-width: 300px;
-      font-size: 1.1em;
-    }
-    a:hover {
-      background-color: #0d8ddb;
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      border: none;
     }
   </style>
 </head>
 <body>
-  <h1>X シンプルビューア</h1>
-  <a href="https://mobile.twitter.com/home" target="_blank">フォロー中</a>
-  <a href="https://x.com/i/lists/1918130237239640416" target="_blank">あんスタスタッフ</a>
-  <a href="https://x.com/i/lists/1917011727113457852" target="_blank">あんスタ声優</a>
+
+  <!-- WebView (iframe) -->
+  <iframe src="https://mobile.twitter.com/home" id="twitterFrame"></iframe>
+
+  <script>
+    const allowedUrls = [
+      "https://mobile.twitter.com/home",  // フォロー中ページ
+      "https://x.com/i/lists/1918130237239640416",  // あんスタスタッフ
+      "https://x.com/i/lists/1917011727113457852"   // あんスタ声優
+    ];
+
+    const iframe = document.getElementById('twitterFrame');
+    
+    // iframeのURLが変更された時に発火
+    iframe.onload = function() {
+      const iframeUrl = iframe.contentWindow.location.href;
+      if (!allowedUrls.some(url => iframeUrl.startsWith(url))) {
+        // 許可されたURLでなければ、最初のページに戻す
+        iframe.contentWindow.location.href = allowedUrls[0];
+      }
+    };
+  </script>
+
 </body>
 </html>
