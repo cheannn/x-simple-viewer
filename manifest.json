@@ -1,0 +1,16 @@
+{
+  "name": "シンプルX",
+  "short_name": "シンプルX",
+  "description": "X（Twitter）のフォロー中とリストだけ表示するシンプルアプリ",
+  "start_url": "https://mobile.twitter.com/home",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1DA1F2",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2012.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
