@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>シンプルX</title>
+  <link rel="manifest" href="manifest.json">
   <style>
     body {
       margin: 0;
@@ -31,14 +32,23 @@
 
     const iframe = document.getElementById('twitterFrame');
     
-    // iframeのURLが変更された時に発火
     iframe.onload = function() {
       const iframeUrl = iframe.contentWindow.location.href;
       if (!allowedUrls.some(url => iframeUrl.startsWith(url))) {
-        // 許可されたURLでなければ、最初のページに戻す
         iframe.contentWindow.location.href = allowedUrls[0];
       }
     };
+
+    // サービスワーカーの登録
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
   </script>
 
 </body>
